@@ -1,0 +1,21 @@
+<div [ngSwitch]="stateStatus" class="search-result-section-container">
+    <div *ngSwitchCase="'initial'">
+        <h3>Recent Searches</h3>
+        <mat-list dense>
+            <mat-list-item>Result 1</mat-list-item>
+            <mat-list-item>Result 2</mat-list-item>
+            <mat-list-item>Result N</mat-list-item>
+        </mat-list>
+    </div>
+    <div *ngSwitchCase="'error'">
+        <h3>There was a problem with your search</h3>
+    </div>
+    <div *ngSwitchCase="'listedLocations'">
+        <h3>Please select a location below:</h3>
+        <mat-list dense>
+            <mat-list-item>Location 1</mat-list-item>
+            <mat-list-item>Location 2</mat-list-item>
+            <mat-list-item>Location N</mat-list-item>
+        </mat-list>
+    </div>
+</div>

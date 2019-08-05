@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { HeaderComponent } from '../header/header.component';
-import { SearchInputComponent } from '../search-input/search-input.component';
+// import { SearchComponent } from '../search/search.component';
 import { SearchResultSectionComponent } from '../search-result-section/search-result-section.component';
 
 @Component({

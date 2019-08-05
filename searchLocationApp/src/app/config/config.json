@@ -1,0 +1,4 @@
+{
+    "apiUrl": "https://api.nestoria.co.uk/api",
+    "headers": "Access-Control-Allow-Origin: *"
+}

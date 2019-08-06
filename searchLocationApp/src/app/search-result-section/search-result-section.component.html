@@ -18,4 +18,10 @@
             <mat-list-item>Location N</mat-list-item>
         </mat-list>
     </div>
+    <div *ngSwitchCase="'searchResults'">
+        <app-search-result-item
+        *ngFor="let searchResult of searchResults; let i = index"
+        [searchResult]="searchResult"
+    ></app-search-result-item>
+    </div>
 </div>

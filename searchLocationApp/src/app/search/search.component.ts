@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { SearchService } from './search.service';
 
@@ -10,10 +11,11 @@ import { SearchService } from './search.service';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  results: Object = [];
+  results: any;
   searchForm: FormGroup;
   searchPhrase: string;
   queryField: FormControl = new FormControl();
+  subscription: Subscription;
  
   constructor(
     private searchService: SearchService,
@@ -22,25 +24,16 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.searchService.search(this.searchForm.value.searchPhrase)
-    .subscribe( result =>  { 
-      this.results = result;
-    });
-    
-    // this.route.params
-    //   .subscribe(
-    //     (params: Params) => {
-    //         this.searchPhrase = params['searchPhrase'];
-    //         console.log(`this.searchPhrase = ${this}`);
-    //         this.initForm();
-    //     }
-    //   )
+    this.subscription = this.searchService.searchChanged
+      .subscribe((response) => {
+        console.log(`SUBSCRIBE results: ${JSON.stringify(response)}`);
+        this.results = response;
+      });
   }
 
   onSearchClicked () {
-    console.log('clicked!');
-    console.log(`this.searchPhrase = ${this.searchForm.value.searchPhrase}`);
-    this.searchService.search(this.searchForm.value.searchPhrase);
+    this.results = this.searchService.search(this.searchForm.value.searchPhrase);
+    console.log(`results = ${JSON.stringify(this.results)}`);
   }
 
   private initForm () {

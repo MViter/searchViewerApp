@@ -1,0 +1,8 @@
+
+{
+  "/api/*": {
+    "target": "https://api.nestoria.co.uk/",
+    "secure": false,
+    "logLevel": "debug" 
+  }
+}

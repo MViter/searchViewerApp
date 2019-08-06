@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModules } from './material-components'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +15,8 @@ import { SearchResultSectionComponent } from './search-result-section/search-res
 import { HomeComponent } from './home/home.component';
 import { SearchService } from './search/search.service';
 import { SearchComponent } from './search/search.component';
+import { AuthInterceptor } from './auth.interceptor';
+import { SearchResultItemComponent } from './search-result-item/search-result-item.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { SearchComponent } from './search/search.component';
     HeaderComponent,
     SearchComponent,
     SearchResultSectionComponent,
-    HomeComponent
+    HomeComponent,
+    SearchResultItemComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,7 @@ import { SearchComponent } from './search/search.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [SearchService],
+  providers: [SearchService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

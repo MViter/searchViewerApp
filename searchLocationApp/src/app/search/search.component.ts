@@ -25,15 +25,17 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.subscription = this.searchService.searchChanged
-      .subscribe((response) => {
-        console.log(`SUBSCRIBE results: ${JSON.stringify(response)}`);
-        this.results = response;
+      .subscribe((results) => {
+        this.results = results;
+        
+        console.log(`SUBSCRIBE results: ${this.results}`);
       });
   }
 
   onSearchClicked () {
-    this.results = this.searchService.search(this.searchForm.value.searchPhrase);
-    console.log(`results = ${JSON.stringify(this.results)}`);
+    this.searchService.search(this.searchForm.value.searchPhrase);
+    // this.results = this.searchService.getSearchResultItems();
+    // console.log(`results = ${this.results}`);
   }
 
   private initForm () {

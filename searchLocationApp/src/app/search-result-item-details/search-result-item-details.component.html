@@ -24,8 +24,8 @@
         <div class="search-result-media">
             <img [src]="searchResult.img_url" [alt]="searchResult.title">
         </div>
-        <button mat-button type="button"  color="primary" (click)="showAdditionalInfo()">Show Details</button>
-        <div class="search-result-additional-info">
+        <button mat-button type="button"  color="primary" (click)="showAdditionalInfo()">{{isShowDetails ? 'Hide' : 'Show' }} Details</button>
+        <div *ngIf="isShowDetails" class="search-result-additional-info">
             <h4>Additional info:</h4>
             <div>Property type: {{searchResult.property_type}}</div>
             <div>Bathroom number: {{searchResult.bathroom_number || 0}}</div>

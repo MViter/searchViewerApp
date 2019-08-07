@@ -29,7 +29,7 @@ export class SearchResultItemDetailsComponent implements OnInit {
   }
 
   showAdditionalInfo () {
-    this.isShowDetails = true;
+    this.isShowDetails = !this.isShowDetails;
   }
 
   getKeywordsArray (obj: {} = {}) {

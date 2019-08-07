@@ -13,6 +13,7 @@ export class SearchResultSectionComponent implements OnInit, OnDestroy {
   stateStatusArray: string[];
   stateStatus: string;
   searchResults: any;
+  recentSearches: {}[] = [];
   
   constructor(private searchService: SearchService) {
     // this.stateStatusArray = ["initial", "error", "listedLocations", "searchResults"];
@@ -20,6 +21,8 @@ export class SearchResultSectionComponent implements OnInit, OnDestroy {
     // this.stateStatus = this.searchService.getSearchResultStatus();
     this.stateStatus = "initial";
     this.searchResults = this.searchService.getSearchResultItems();
+    this.recentSearches.push({index: 1, text: 'qweqwe'});
+    this.recentSearches.push({index: 2, text: 'qweqwe2'});
   }
 
   ngOnInit() {

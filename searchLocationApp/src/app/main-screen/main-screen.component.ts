@@ -14,7 +14,6 @@ export class MainScreenComponent implements OnInit, OnDestroy  {
 
   ngOnInit() {
     this.page = this.route.snapshot.params['bank'];
-    console.log(`PAGE = ${this.page}`);
   }
 
   ngOnDestroy() {

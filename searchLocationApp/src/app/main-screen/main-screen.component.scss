@@ -1,14 +1,23 @@
+#base-content-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    border: 1px solid red;
+    width: 100%;
+
+    #app-grid {
+        width: 70%;
+    }
+}
+
 $break-small: 500px;
 $break-large: 1200px;
 
-.base-content-container {
-    display: flex !important;
-    justify-content: center !important;
 
-    @media screen and (width: $break-large) {
-        .base-content-container {
-            width: 100% !important;
-            margin: 0 auto;
-        }
+@media screen and (max-width: $break-small) {
+    #base-content-container {
+        width: 100% !important;
+        margin: 0 auto;
+        border: 1px solid red !important;
     }
 }

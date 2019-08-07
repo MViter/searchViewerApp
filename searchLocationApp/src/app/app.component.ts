@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
-import { PropertySearchComponent } from './property-search/property-search.component';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'searchLocationApp';
+  constructor(private router: Router){}
+
+  ngOnInit() {
+    this.router.navigate([''])
+  }
 }

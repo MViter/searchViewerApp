@@ -8,7 +8,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PropertySearchComponent } from './property-search/property-search.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { HeaderComponent } from './header/header.component';
 import { SearchResultSectionComponent } from './search-result-section/search-result-section.component';
@@ -19,19 +18,20 @@ import { AuthInterceptor } from './auth.interceptor';
 import { SearchResultItemComponent } from './search-result-item/search-result-item.component';
 import { MainScreenComponent } from './main-screen/main-screen.component';
 import { SearchResultItemDetailsComponent } from './search-result-item-details/search-result-item-details.component';
+import { ResentSearchItemComponent } from './resent-search-item/resent-search-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchResultsComponent,
-    PropertySearchComponent,
     HeaderComponent,
     SearchComponent,
     SearchResultSectionComponent,
     HomeComponent,
     SearchResultItemComponent,
     MainScreenComponent,
-    SearchResultItemDetailsComponent
+    SearchResultItemDetailsComponent,
+    ResentSearchItemComponent
   ],
   imports: [
     BrowserModule,

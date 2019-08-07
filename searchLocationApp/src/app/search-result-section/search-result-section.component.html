@@ -1,11 +1,11 @@
-<div [ngSwitch]="stateStatus" class="search-result-section-container">
+<!-- <div [ngSwitch]="stateStatus" class="search-result-section-container">
     <div *ngSwitchCase="'initial'">
         <h3>Recent Searches</h3>
-        <mat-list dense>
-            <mat-list-item>Result 1</mat-list-item>
-            <mat-list-item>Result 2</mat-list-item>
-            <mat-list-item>Result N</mat-list-item>
-        </mat-list>
+            <app-resent-search
+                *ngFor="let search of recentSearches; let i = index"
+                [search]="search"
+                [index]="i">
+            </app-resent-search>
     </div>
     <div *ngSwitchCase="'error'">
         <h3>There was a problem with your search</h3>
@@ -22,6 +22,21 @@
         <app-search-result-item
         *ngFor="let searchResult of searchResults; let i = index"
         [searchResult]="searchResult"
-    ></app-search-result-item>
+    ></app-search-result-item> 
     </div>
-</div>
+</div> -->
+<section>
+        <h4>Resent Searches</h4>
+        <mat-card-content class="centred-content-contentainer">
+            <mat-divider></mat-divider>
+            <div class="search-result-section-container">
+                <div>
+                    <app-resent-search-item
+                        *ngFor="let recentSearch of recentSearches; let i = index"
+                        [recentSearch]="recentSearch"
+                        [index]="i"
+                    ></app-resent-search-item>
+                </div>
+            </div>
+        </mat-card-content>
+    <section>

@@ -17,6 +17,8 @@ import { SearchService } from './search/search.service';
 import { SearchComponent } from './search/search.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { SearchResultItemComponent } from './search-result-item/search-result-item.component';
+import { MainScreenComponent } from './main-screen/main-screen.component';
+import { SearchResultItemDetailsComponent } from './search-result-item-details/search-result-item-details.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { SearchResultItemComponent } from './search-result-item/search-result-it
     SearchComponent,
     SearchResultSectionComponent,
     HomeComponent,
-    SearchResultItemComponent
+    SearchResultItemComponent,
+    MainScreenComponent,
+    SearchResultItemDetailsComponent
   ],
   imports: [
     BrowserModule,

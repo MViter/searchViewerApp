@@ -1,0 +1,53 @@
+<section class="search-result">
+    <div style="display: flex; justify-content: spase-between;">
+        <h3 style="font-size: 22px; font-weight: 600; margin-right: 10px;">{{searchResult.title}}</h3>
+        <div mat-card-avatar class="example-header-image">
+            <img [src]="searchResult.thumb_url" alt="searchResult.title" style="width: 50px; height: 50px; background-size: cover; border-radius: 50%;">
+        </div>
+    </div>
+    <div class="centred-content-contentainer">
+        <div class="search-result-summary">
+            <p>{{searchResult.summary}}</p>
+        </div>
+        <div>Keywords:
+            <span *ngFor="let keyword of keywordsArray" class="search-result-keywords">{{keyword}}</span>
+            <!-- {{searchResult.keywords}} -->
+        </div>
+        <div class="search-result-price">
+            <h4>Price info:</h4>
+            <div>{{searchResult.price_formatted}}
+                <span *ngIf="isPriceDifferent()">, from {{searchResult.price_currency}}{{searchResult.price_low}} to {{searchResult.price_currency}}{{searchResult.price_high}}</span>
+            </div>
+            <div>Price type: {{searchResult.price_type}}</div>
+            <div>Commision: {{searchResult.commission}}</div>
+        </div>
+        <div class="search-result-media">
+            <img [src]="searchResult.img_url" [alt]="searchResult.title">
+        </div>
+        <button mat-button type="button"  color="primary" (click)="showAdditionalInfo()">Show Details</button>
+        <div class="search-result-additional-info">
+            <h4>Additional info:</h4>
+            <div>Property type: {{searchResult.property_type}}</div>
+            <div>Bathroom number: {{searchResult.bathroom_number || 0}}</div>
+            <div>Bedroom number: {{searchResult.bedroom_number}}</div>
+            <div>Car spaces: {{searchResult.car_spaces}}</div>
+            <div>Construction year: {{searchResult.construction_year}}</div>
+            <div>Datasource: {{searchResult.datasource_name}}</div>
+            <div>Lister name: {{searchResult.lister_name}}</div>
+            <div>
+                <img [src]="searchResult.lister_url[0]" [alt]="searchResult.lister_name">
+            </div>
+            <div>Lister type:{{searchResult.lister_type}}</div>
+            <div>
+                <img [src]="searchResult.location_accuracy" [alt]="searchResult.title">
+            </div>
+            <div>Coordinates: latitude:{{searchResult.latitude}} / longitude:{{searchResult.longitude}}</div>
+            <div>Size: {{searchResult.size}}</div>
+            <div>Size type: {{searchResult.size_type}}</div>
+        </div>
+        <div class="search-result-footer-info">
+            <!-- <div>{{searchResult.updated_in_days}}</div> -->
+            <div>{{searchResult.updated_in_days_formatted}}</div>
+        </div>
+    </div>
+</section>

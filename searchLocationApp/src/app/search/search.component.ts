@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
       .subscribe((results) => {
         this.results = results;
         
-        console.log(`SUBSCRIBE results: ${this.results}`);
+        // console.log(`SUBSCRIBE results: ${this.results}`);
       });
   }
 

@@ -1,0 +1,17 @@
+.search-result-item {
+    max-height: 100px;
+    width: 100%;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    img {
+        max-height: 90px;
+        padding: 10px 5px;
+    }
+    
+    .search-result-item-content {
+        width: 80%;
+        padding: 10px 5px;
+    }
+}

@@ -1,0 +1,33 @@
+.search-result {
+    padding: 10px;
+
+    .search-result-summary {
+        margin: 20px 0;
+        font-size: 18px;
+    }
+    .search-result-footer-info {
+        color: lightslategray;
+        background-color: lightgray;
+    }
+
+    .search-result-keywords {
+        display: inline-block;
+        background-color: #8a9dfc;
+        margin: 0 5px 5px 0;
+        border-radius: 10%;
+        padding: 2px;
+    }
+
+    .search-result-price {
+        margin: 20px 0;
+    }
+
+    .search-result-media {
+        img {
+            width: 100%;
+        }
+    }
+    //.search-result-additional-info {
+        //background-color: var(--primary-color);
+    //}
+}

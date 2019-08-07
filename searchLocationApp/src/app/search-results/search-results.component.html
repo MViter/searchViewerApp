@@ -1,1 +1,17 @@
-<p>search-results works!</p>
+<section>
+    <h4>Search Results</h4>
+    <mat-card-subtitle>X of Y matches</mat-card-subtitle>
+    <mat-card-content class="centred-content-contentainer">
+        <mat-divider></mat-divider>
+        <div class="search-result-section-container">
+            <div>
+                <app-search-result-item
+                    *ngFor="let searchResult of searchResults; let i = index"
+                    [searchResult]="searchResult"
+                    [index]="i"
+                ></app-search-result-item>
+                </div>
+            </div>
+    </mat-card-content>
+<section>
+    

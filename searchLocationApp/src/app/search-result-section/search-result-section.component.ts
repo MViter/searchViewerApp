@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { SearchService } from '../search/search.service';
 @Component({
-  selector: 'app-search-result',
+  selector: 'app-search-result-section',
   templateUrl: './search-result-section.component.html',
   styleUrls: ['./search-result-section.component.scss']
 })
@@ -17,9 +17,9 @@ export class SearchResultSectionComponent implements OnInit, OnDestroy {
   constructor(private searchService: SearchService) {
     // this.stateStatusArray = ["initial", "error", "listedLocations", "searchResults"];
     // this.stateStatus = this.stateStatusArray[0];
-    this.stateStatus = this.searchService.getSearchResultStatus();
+    // this.stateStatus = this.searchService.getSearchResultStatus();
+    this.stateStatus = "initial";
     this.searchResults = this.searchService.getSearchResultItems();
-    console.log(`this.stateStatus = ${this.stateStatus}`);
   }
 
   ngOnInit() {

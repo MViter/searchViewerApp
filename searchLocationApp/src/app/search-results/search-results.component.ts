@@ -1,15 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
+import { Subscription } from 'rxjs';
+
+import { SearchService } from '../search/search.service';
 
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss']
 })
-export class SearchResultsComponent implements OnInit {
+export class SearchResultsComponent implements OnInit, OnDestroy {
 
-  constructor() { }
-
-  ngOnInit() {
+  subscription: Subscription;
+  stateStatusArray: string[];
+  stateStatus: string;
+  searchResults: [] = [];
+  matchesNumber: number=0;
+  
+  constructor(private searchService: SearchService) {
+    this.stateStatus = this.searchService.getSearchResultStatus();
+    this.searchResults = this.searchService.getSearchResultItems();
+    this.matchesNumber = this.searchResults.length;
   }
 
+  ngOnInit() {
+    this.subscription = this.searchService.searchChanged
+    .subscribe(
+      (results: []) => {
+        this.searchResults = results;
+      }
+    );
+    this.searchResults = this.searchService.getSearchResultItems();
+  }
+
+  ngOnDestroy () {
+    this.subscription.unsubscribe();
+  }
 }

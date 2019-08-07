@@ -1,17 +1,16 @@
-<mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{searchResult.title}}</mat-card-title>
-      <mat-card-subtitle>{{searchResult.keywords}}</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image
-        [src]="searchResult.img_url"
-        alt="Photo of a Test"
-        >
-    <mat-card-content>
-      <p>
-            {{searchResult.summary}}
-    </mat-card-content>
-    <mat-card-actions>
-    </mat-card-actions>
-</mat-card>
+<a style="cursor: pointer; text-decoration: none; color: darkslategray"
+    [routerLink]="[index]"
+    routerLinkActive="active"
+    class="search-result-item"
+>
+    <img
+        [src]="searchResult.thumb_url"
+        [alt]="searchResult.title"
+    >
+    <div class="search-result-item-content">
+        <div class="search-result-item-price">{{searchResult.price_formatted}}</div>
+        <div class="search-result-item-title"><b>{{searchResult.title}}</b></div>
+        <div class="search-result-item-subtitle">{{searchResult.keywords}}</div>
+    </div>
+    <mat-divider></mat-divider>
+</a>

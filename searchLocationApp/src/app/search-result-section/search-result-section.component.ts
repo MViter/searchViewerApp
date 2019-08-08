@@ -19,9 +19,6 @@ export class SearchResultSectionComponent implements OnInit, OnDestroy {
   constructor(
     private searchService: SearchService,
     private lsService: LocalStorageService) {
-    // this.stateStatusArray = ["initial", "error", "listedLocations", "searchResults"];
-    // this.stateStatus = this.stateStatusArray[0];
-    // this.stateStatus = this.searchService.getSearchResultStatus();
     this.stateStatus = "initial";
     this.searchResults = this.searchService.getSearchResultItems();
   }

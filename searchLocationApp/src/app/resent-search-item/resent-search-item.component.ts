@@ -14,7 +14,5 @@ export class ResentSearchItemComponent implements OnInit {
   constructor(private lsService: LocalStorageService) { }
 
   ngOnInit() {
-    const data = this.lsService.get();
-    console.log(`Recent Search Item Component:\n!!! localstorage: ${data}, \n!!! new search: ${this.search}`);
   }
 }

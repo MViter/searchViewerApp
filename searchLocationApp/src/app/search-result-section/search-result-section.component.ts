@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { SearchService } from '../search/search.service';
+import { LocalStorageService } from '../resent-search-item/localstorage.service';
 @Component({
   selector: 'app-search-result-section',
   templateUrl: './search-result-section.component.html',
@@ -15,14 +16,14 @@ export class SearchResultSectionComponent implements OnInit, OnDestroy {
   searchResults: any;
   recentSearches: {}[] = [];
   
-  constructor(private searchService: SearchService) {
+  constructor(
+    private searchService: SearchService,
+    private lsService: LocalStorageService) {
     // this.stateStatusArray = ["initial", "error", "listedLocations", "searchResults"];
     // this.stateStatus = this.stateStatusArray[0];
     // this.stateStatus = this.searchService.getSearchResultStatus();
     this.stateStatus = "initial";
     this.searchResults = this.searchService.getSearchResultItems();
-    this.recentSearches.push({index: 1, text: 'qweqwe'});
-    this.recentSearches.push({index: 2, text: 'qweqwe2'});
   }
 
   ngOnInit() {
@@ -33,6 +34,7 @@ export class SearchResultSectionComponent implements OnInit, OnDestroy {
       }
     );
     this.searchResults = this.searchService.getSearchResultItems();
+    this.recentSearches = this.lsService.get();
   }
 
   ngOnDestroy () {

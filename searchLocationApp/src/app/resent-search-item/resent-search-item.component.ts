@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { LocalStorageService } from './localstorage.service';
 
 @Component({
   selector: 'app-resent-search-item',
@@ -7,13 +8,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ResentSearchItemComponent implements OnInit {
 
-  @Input() recentSearch: any;
   @Input() index: number;
-  @Input() seach: any;
+  @Input() search: any;
 
-  constructor() { }
+  constructor(private lsService: LocalStorageService) { }
 
   ngOnInit() {
+    const data = this.lsService.get();
+    console.log(`Recent Search Item Component:\n!!! localstorage: ${data}, \n!!! new search: ${this.search}`);
   }
-
 }

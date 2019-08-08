@@ -25,15 +25,14 @@
     ></app-search-result-item> 
     </div>
 </div> -->
-<section>
-        <h4>Resent Searches</h4>
+<section style="padding-top: 20px;">
+        <h4 *ngIf="recentSearches.length > 0">Resent Searches</h4>
         <mat-card-content class="centred-content-contentainer">
-            <mat-divider></mat-divider>
             <div class="search-result-section-container">
                 <div>
                     <app-resent-search-item
-                        *ngFor="let recentSearch of recentSearches; let i = index"
-                        [recentSearch]="recentSearch"
+                        *ngFor="let search of recentSearches; let i = index"
+                        [search]="search"
                         [index]="i"
                     ></app-resent-search-item>
                 </div>

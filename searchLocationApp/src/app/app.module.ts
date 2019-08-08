@@ -19,6 +19,8 @@ import { SearchResultItemComponent } from './search-result-item/search-result-it
 import { MainScreenComponent } from './main-screen/main-screen.component';
 import { SearchResultItemDetailsComponent } from './search-result-item-details/search-result-item-details.component';
 import { ResentSearchItemComponent } from './resent-search-item/resent-search-item.component';
+import { StorageServiceModule } from 'ngx-webstorage-service';
+import { LocalStorageService } from './resent-search-item/localstorage.service';
 
 @NgModule({
   declarations: [
@@ -40,9 +42,10 @@ import { ResentSearchItemComponent } from './resent-search-item/resent-search-it
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StorageServiceModule
   ],
-  providers: [SearchService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [SearchService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { SearchService } from './search.service';
+import { LocalStorageService } from '../resent-search-item/localstorage.service';
 
 @Component({
   selector: 'app-search',
@@ -19,8 +20,10 @@ export class SearchComponent implements OnInit {
  
   constructor(
     private searchService: SearchService,
+    private lsService: LocalStorageService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.initForm();
@@ -33,9 +36,10 @@ export class SearchComponent implements OnInit {
   }
 
   onSearchClicked () {
+    this.lsService.store(this.searchForm.value.searchPhrase);
+    const data = this.lsService.get();
+    console.log(`Search Component:\n!!! localstorage: ${data}, \n!!! new search: ${this.searchForm.value.searchPhrase}`);
     this.searchService.search(this.searchForm.value.searchPhrase);
-    // this.results = this.searchService.getSearchResultItems();
-    // console.log(`results = ${this.results}`);
   }
 
   private initForm () {

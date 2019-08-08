@@ -1,27 +1,26 @@
 <mat-card-title>Property Search</mat-card-title>
-    <mat-card-content class="centred-content-contentainer">
-        <div class="search-text-container">
-            <p>Use the form below to search for house to buy. You can search by place-name, postcose, or click 'My location', to search in your current location</p>
-        </div>
-        <mat-divider></mat-divider>
-        <form [formGroup]="searchForm" class="search-form" style="margin: 20px 0;">
-                <mat-form-field class="search-full-width" style="margin: 20px 0;"> 
-                  <input
-                    matInput
-                    placeholder="Input your search params"
-                    type="text"
-                    id="searchPhrase"
-                    formControlName="searchPhrase"
-                    autofocus
-                    required>
-                </mat-form-field>
-                {{ this.searchForm.value.searchPhrase }}
-                <div class="button-row">
-                    <!-- <button mat-stroked-button type="button" (click)="onSearchClicked()">Go</button> -->
-                    <a routerLink="/search-results"><button mat-stroked-button type="button" (click)="onSearchClicked()">Go</button></a>
-                    <button mat-stroked-button color="primary">My Location</button>
-                </div>
-            </form>
+<mat-card-content class="centred-content-contentainer">
+    <div class="search-text-container" style="padding-bottom: 20px;">
+        <p>Use the form below to search for house to buy. You can search by place-name, postcose, or click 'My location', to search in your current location</p>
+    </div>
+    <mat-divider></mat-divider>
+    <form [formGroup]="searchForm" class="search-form" style="margin: 20px 0;">
+            <mat-form-field class="search-full-width"> 
+              <input
+                matInput
+                placeholder="Input your search params"
+                type="text"
+                id="searchPhrase"
+                formControlName="searchPhrase"
+                autofocus
+                required>
+            </mat-form-field>
+            {{ this.searchForm.value.searchPhrase }}
+            <div class="button-row">
+                <a routerLink="/search-results"><button mat-stroked-button type="button" (click)="onSearchClicked()">Go</button></a>
+                <button mat-stroked-button color="primary">My Location</button>
+            </div>
+    </form>
     <mat-divider></mat-divider>
     <app-search-result-section></app-search-result-section>
 </mat-card-content>

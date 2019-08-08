@@ -4,7 +4,7 @@
             <div class="search-result-section-container">
                 <div>
                     <app-resent-search-item
-                        *ngFor="let search of recentSearches; let i = index"
+                        *ngFor="let search of recentSearches; let i = index; let propertyType = propertyType"
                         [search]="search"
                         [index]="i"
                     ></app-resent-search-item>

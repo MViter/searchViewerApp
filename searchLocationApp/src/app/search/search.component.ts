@@ -13,11 +13,13 @@ import { LocalStorageService } from '../resent-search-item/localstorage.service'
 })
 export class SearchComponent implements OnInit {
   results: any;
+  subscription: Subscription;
+
   searchForm: FormGroup;
   searchPhrase: string;
-  queryField: FormControl = new FormControl();
-  subscription: Subscription;
- 
+  propertyTypes:string[] = ['buy', 'rent', 'share'];
+  propertyType: string;
+
   constructor(
     private searchService: SearchService,
     private lsService: LocalStorageService,
@@ -34,15 +36,19 @@ export class SearchComponent implements OnInit {
   }
 
   onSearchClicked () {
-    this.lsService.store(this.searchForm.value.searchPhrase);
-    const data = this.lsService.get();
-    this.searchService.search(this.searchForm.value.searchPhrase);
+    const { searchPhrase, propertyType } = this.searchForm.value;
+    const searchObj : { searchPhrase : string, propertyType : string } = {
+      searchPhrase,
+      propertyType
+    };
+    this.lsService.store(searchObj);
+    this.searchService.search(searchObj);
   }
 
   private initForm () {
-    let searchPhrase = '';
     this.searchForm = new FormGroup({
-      'searchPhrase': new FormControl(searchPhrase, Validators.required)
+      'searchPhrase': new FormControl(this.searchPhrase, Validators.required),
+      'propertyType': new FormControl(this.propertyType, Validators.required)
     })
   }
 }

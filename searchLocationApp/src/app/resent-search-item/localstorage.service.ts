@@ -6,20 +6,45 @@ const STORAGE_KEY = 'search_storage';
 export class LocalStorageService {
     constructor(@Inject(LOCAL_STORAGE) private storage: StorageService) { }
         
-    store (searchText: string): void {
-        if (searchText === '') return;
-        const currentLsData = this.storage.get(STORAGE_KEY) || [];
-        const index = currentLsData.length + 1;
-        const newObj = { index, searchText};
-        currentLsData.push(newObj);
-        this.storage.set(STORAGE_KEY, currentLsData);
+    store (searchObj: {searchPhrase:string, propertyType:string}): void {
+        const { searchPhrase, propertyType } = searchObj;
+        if (searchPhrase === '' || !this.isUnique(searchObj)) return;
+        const currentLsData = this.get();
+        
+        const nextIndex = this.getLength() + 1;
+        const newSearchObj = { nextIndex, searchPhrase, propertyType};
+        currentLsData.push(newSearchObj);
+        this.set(currentLsData);
     }
 
     get () {
-        return this.storage.get(STORAGE_KEY);
+        return this.storage.get(STORAGE_KEY) || [];
     }
 
-    remove () {
-        this.storage.remove(STORAGE_KEY)
+    remove (index: number) {
+        let ls = this.get();
+        ls.splice(index, 1);
+        this.set(ls);
+    }
+
+    removeAll () {
+        this.storage.remove(STORAGE_KEY);
+    }
+
+    set (currentLsData: []) {
+        this.storage.set(STORAGE_KEY, currentLsData);
+    }
+
+    getLength () {
+        return this.get().length;
+    }
+
+    isUnique(obj: {searchPhrase: string, propertyType: string}):boolean {
+        const currentLsData = this.get();
+        let isUnique = true;
+        currentLsData.forEach((search: {searchPhrase: string, propertyType: string}) => 
+            (isUnique = !((search.searchPhrase === obj.searchPhrase && search.propertyType === obj.propertyType)))
+        );
+        return isUnique;
     }
 }

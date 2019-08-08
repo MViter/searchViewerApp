@@ -1,7 +1,7 @@
 <mat-card-title>Property Search</mat-card-title>
 <mat-card-content class="centred-content-contentainer">
     <div class="search-text-container" style="padding-bottom: 20px;">
-        <p>Use the form below to search for house to buy. You can search by place-name, postcose, or click 'My location', to search in your current location</p>
+        <p>Use the form below to search for house to buy. You can search by <b>place-name</b>, <b>postcose</b>, or click 'My location', to search in your current location</p>
     </div>
     <mat-divider></mat-divider>
     <form [formGroup]="searchForm" class="search-form" style="margin: 20px 0;">
@@ -16,9 +16,23 @@
                 required>
             </mat-form-field>
             {{ this.searchForm.value.searchPhrase }}
+            <div>
+                <label>Property type: </label><br/>
+                <mat-radio-group formControlName="propertyType" aria-labelledby="property-search-radio-group-label"
+                    class="property-search-radio-group"
+                >
+                  <mat-radio-button
+                    class="property-search-radio-button"
+                    *ngFor="let propertyType of propertyTypes"
+                    [value]="propertyType"
+                    >
+                        {{propertyType}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
             <div class="button-row">
-                <a routerLink="/search-results"><button mat-stroked-button type="button" (click)="onSearchClicked()">Go</button></a>
-                <button mat-stroked-button color="primary">My Location</button>
+                <a routerLink="/search-results"><button [disabled]="!searchForm.valid" mat-button type="button" (click)="onSearchClicked()">Go</button></a>
+                <button id="my-location-btn" mat-button color="primary">My Location</button>
             </div>
     </form>
     <mat-divider></mat-divider>

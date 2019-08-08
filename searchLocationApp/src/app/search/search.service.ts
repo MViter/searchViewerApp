@@ -6,7 +6,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class SearchService {
     // baseUrl: string = 'https://api.nestoria.co.uk/api';
-    testUrl: string = 'http://localhost:3000/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=buy&page=1&centre_point=51.684183,-3.431481';
+    propertyType: string = '';
+    // testUrl: string = `http://localhost:3000/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=${this.getPropertyType()}&page=1&place_name=`;
     results: []=[];
     searchChanged = new Subject<any>();
     resultStatus: string;
@@ -25,22 +26,27 @@ export class SearchService {
       return this.results.slice()[i];
     }
 
-    search(queryString: string) {
+    search(searchObj: {searchPhrase:string, propertyType:string}) {
+      const { searchPhrase, propertyType } = searchObj;
+      if (searchPhrase === '') return;
+
+      let testUrl: string = `http://localhost:3000/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=${propertyType}&page=1&place_name=${searchPhrase}`;
       const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
-        this.http.get(this.testUrl, {responseType: 'text', headers})
-        .map(
-            (data: any) => {
-                const response = data;
-                return response;
-            }
-        )
-        .subscribe(
-            (response: string) => {
-                const arrayOfResults:[] = Array.prototype.slice.call(JSON.parse(response).response.listings);
-                this.setResults(arrayOfResults);
-                this.searchChanged.next(arrayOfResults);
-            }
-        )
+      this.propertyType = propertyType;
+      this.http.get(testUrl, {responseType: 'text', headers})
+      .map(
+          (data: any) => {
+              const response = data;
+              return response;
+          }
+      )
+      .subscribe(
+          (response: string) => {
+              const arrayOfResults:[] = Array.prototype.slice.call(JSON.parse(response).response.listings);
+              this.setResults(arrayOfResults);
+              this.searchChanged.next(arrayOfResults);
+          }
+      )
     }
 
     setResults (result: []) {

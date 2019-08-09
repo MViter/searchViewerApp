@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit, OnDestroy {
       searchPhrase,
       propertyType
     };
-    
+
     this.lsService.store(searchObj);
     this.searchService.search(searchObj);
   }
@@ -62,6 +62,10 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.onSearchClicked();
       this.router.navigate(["/search-results"]);
     }
+  }
+
+  removeAllRecentSearches() {
+    this.lsService.removeAll();
   }
 
   private initForm () {

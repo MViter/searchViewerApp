@@ -36,6 +36,7 @@ export class LocalStorageService {
 
     removeAll () {
         this.storage.remove(STORAGE_KEY);
+        this.recentSearchChanged.next([]);
     }
 
     set (data: Search[]) {

@@ -15,7 +15,7 @@
                 autofocus
                 required>
             </mat-form-field>
-            {{ this.searchForm.value.searchPhrase }}
+            <!-- {{ this.searchForm.value.searchPhrase }} -->
             <div>
                 <label>Property type: </label><br/>
                 <mat-radio-group formControlName="propertyType" aria-labelledby="property-search-radio-group-label"
@@ -37,8 +37,11 @@
             </div>
     </form>
     <mat-divider></mat-divider>
-    <section style="padding-top: 20px;">
-        <h4 *ngIf="recentSearches.length > 0">Resent Searches</h4>
+    <section *ngIf="recentSearches.length > 0" style="padding-top: 20px;">
+        <div style="display: flex; justify-content: space-between;">
+            <h4>Resent Searches</h4>
+            <button (click)="removeAllRecentSearches()" mat-button color="primary">Remove all</button>
+        </div>
         <mat-card-content class="centred-content-contentainer">
             <div class="search-result-section-container">
                 <div>

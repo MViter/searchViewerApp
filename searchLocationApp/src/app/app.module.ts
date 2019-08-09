@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { HeaderComponent } from './header/header.component';
-import { SearchResultSectionComponent } from './search-result-section/search-result-section.component';
 import { HomeComponent } from './home/home.component';
 import { SearchService } from './search/search.service';
 import { SearchComponent } from './search/search.component';
@@ -28,7 +27,6 @@ import { LocalStorageService } from './resent-search-item/localstorage.service';
     SearchResultsComponent,
     HeaderComponent,
     SearchComponent,
-    SearchResultSectionComponent,
     HomeComponent,
     SearchResultItemComponent,
     MainScreenComponent,

@@ -1,12 +1,12 @@
 <div  class="search-item">
-    <a routerLink="/search-results" (click)="onRecentSearchClicked()" style="cursor: pointer; text-decoration: none; color: darkslategray;"
-       class="recent-search-item"
-    >   
-       <div class="recent-search-item-container">
-           <div class="recent-search-item-content">{{search.searchPhrase}}, {{search.propertyType}}</div>
-           <div class="recent-search-item-delete">
-               <button (click)="onClickDelete(index)">x</button>
+    <mat-chip>
+        <a routerLink="/search-results" (click)="onRecentSearchClicked()" style="cursor: pointer; text-decoration: none; color: darkslategray;"
+            class="recent-search-item"
+        >   
+            <div class="recent-search-item-container">
+                <div class="recent-search-item-content">{{search.searchPhrase}}, {{search.propertyType}}</div>
             </div>
-       </div>
-    </a>
+        </a>
+        <mat-icon matChipRemove (click)="onClickDelete(index)">cancel</mat-icon>
+    </mat-chip>
 </div>

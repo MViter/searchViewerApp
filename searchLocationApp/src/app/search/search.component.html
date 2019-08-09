@@ -4,7 +4,7 @@
         <p>Use the form below to search for house to buy. You can search by <b>place-name</b>, <b>postcose</b>, or click 'My location', to search in your current location</p>
     </div>
     <mat-divider></mat-divider>
-    <form [formGroup]="searchForm" class="search-form" style="margin: 20px 0;">
+    <form [formGroup]="searchForm" class="search-form" style="margin: 20px 0;" (keydown)="onKeyDown($event)">
             <mat-form-field class="search-full-width"> 
               <input
                 matInput
@@ -25,6 +25,7 @@
                     class="property-search-radio-button"
                     *ngFor="let propertyType of propertyTypes"
                     [value]="propertyType"
+                    [checked]="isCheckedByDefault"
                     >
                         {{propertyType}}
                     </mat-radio-button>
@@ -36,5 +37,20 @@
             </div>
     </form>
     <mat-divider></mat-divider>
-    <app-search-result-section></app-search-result-section>
+    <section style="padding-top: 20px;">
+        <h4 *ngIf="recentSearches.length > 0">Resent Searches</h4>
+        <mat-card-content class="centred-content-contentainer">
+            <div class="search-result-section-container">
+                <div>
+                    <mat-chip-list aria-label="Recent Searches">
+                        <app-resent-search-item
+                            *ngFor="let search of recentSearches; let i = index; let propertyType = propertyType"
+                            [search]="search"
+                            [index]="i"
+                        ></app-resent-search-item>
+                    </mat-chip-list>
+                </div>
+            </div>
+        </mat-card-content>
+    </section>
 </mat-card-content>

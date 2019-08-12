@@ -1,7 +1,7 @@
 <mat-card-title>Property Search</mat-card-title>
 <mat-card-content class="centred-content-contentainer">
     <div class="search-text-container" style="padding-bottom: 20px;">
-        <p>Use the form below to search for house to buy. You can search by <b>place-name</b>, <b>postcose</b>, or click 'My location', to search in your current location</p>
+        <p>Use the form below to search for house to buy. You can search by <b>place-name</b>, <b>postcose</b>, or click <b>'My location'</b>, to search in your current location</p>
     </div>
     <mat-divider></mat-divider>
     <form [formGroup]="searchForm" class="search-form" style="margin: 20px 0;" (keydown)="onKeyDown($event)">
@@ -32,8 +32,8 @@
                 </mat-radio-group>
             </div>
             <div class="button-row">
-                <a routerLink="/search-results"><button [disabled]="!searchForm.valid" mat-button type="button" (click)="onSearchClicked()">Go</button></a>
-                <button id="my-location-btn" mat-button color="primary">My Location</button>
+                <a routerLink="/search-results"><button mat-button type="button" [disabled]="!searchForm.valid" (click)="onSearchClicked()">Go</button></a>
+                <a routerLink="/search-results"><button mat-button type="button" (click)="onMyLocationClicked()">My Location</button></a>
             </div>
     </form>
     <mat-divider></mat-divider>

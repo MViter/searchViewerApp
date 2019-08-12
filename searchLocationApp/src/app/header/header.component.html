@@ -3,13 +3,16 @@
     <span class="example-fill-remaining-space"></span>
   
     <div>
-        <button mat-icon-button>
-            <mat-icon aria-hidden="false">favorite</mat-icon>
+        <a routerLink="/favorite-search-results" style="color: white;">
+            <button mat-icon-button>
+                <mat-icon aria-hidden="false">favorite</mat-icon>
+            </button>
+        </a>
+        <a routerLink="/search-input" style="color: white;">
+            <button mat-icon-button>
+                <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
         </button>
-        <button mat-icon-button>
-            <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-        </button>
-
+        </a>
         <mat-menu #appMenu="matMenu">
             <ng-template matMenuContent let-name="name">
               <button mat-menu-item>Settings</button>

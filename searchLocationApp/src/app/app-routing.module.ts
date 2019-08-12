@@ -4,6 +4,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
 import { SearchResultItemDetailsComponent } from './search-result-item-details/search-result-item-details.component';
+import { FavoriteSearchResultsComponent } from './favorite-search-results/favorite-search-results.component';
 
 const routes: Routes = [
   // { path: '', component: HomeComponent},
@@ -11,6 +12,8 @@ const routes: Routes = [
   { path: 'search-input', component: SearchComponent},
   { path: 'search-results', component: SearchResultsComponent},
   { path: 'search-results/:id', component: SearchResultItemDetailsComponent },
+  { path: 'favorite-search-results', component: FavoriteSearchResultsComponent },
+  { path: 'favorite-search-results/:id', component: SearchResultItemDetailsComponent },
 ];
 
 @NgModule({

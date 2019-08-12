@@ -1,6 +1,6 @@
 <section class="search-result">
     <div style="display: flex; justify-content: spase-between;">
-        <h3 style="font-size: 22px; font-weight: 600; margin-right: 10px;">{{searchResult.title}}</h3>
+        <h3 style="font-size: 22px; font-weight: 600; margin-right: 10px;">{{searchResult.title? searchResult.title : ''}}</h3>
         <div mat-card-avatar class="example-header-image">
             <img [src]="searchResult.thumb_url" alt="searchResult.title" style="width: 50px; height: 50px; background-size: cover; border-radius: 50%;">
         </div>
@@ -9,13 +9,19 @@
         <div class="search-result-summary">
             <p>{{searchResult.summary}}</p>
         </div>
+        <div>
+            <button mat-icon-button color="accent" aria-label="Icon-button with a heart icon">
+                <mat-icon (click)="manageFavorites()">{{isItemInFavorites? 'favorite' : 'favorite_border'}}</mat-icon>
+            </button>
+            <label for="favorite-button">{{isItemInFavorites? 'in favorites' : 'add to favorite'}}</label>
+        </div>
         <div>Keywords:
             <span *ngFor="let keyword of keywordsArray" class="search-result-keywords">{{keyword}}</span>
         </div>
         <div class="search-result-price">
             <h4>Price info:</h4>
             <div>{{searchResult.price_formatted}}
-                <span *ngIf="isPriceDifferent()">, from {{searchResult.price_currency}}{{searchResult.price_low}} to {{searchResult.price_currency}}{{searchResult.price_high}}</span>
+                <!-- <span *ngIf="isPriceDifferent()">, from {{searchResult.price_currency}}{{searchResult.price_low}} to {{searchResult.price_currency}}{{searchResult.price_high}}</span> -->
             </div>
             <div>Price type: {{searchResult.price_type}}</div>
             <div>Commision: {{searchResult.commission}}</div>

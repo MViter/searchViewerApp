@@ -1,0 +1,18 @@
+<section>
+        <h4>Favorites</h4>
+        <mat-card-content class="centred-content-contentainer">
+            <mat-divider></mat-divider>
+            <div class="search-result-section-container">
+                <div *ngIf="searchResults.length > 0">
+                    <app-search-result-item
+                        *ngFor="let searchResult of searchResults; let i = index"
+                        [searchResult]="searchResult"
+                        [index]="i"
+                    ></app-search-result-item>
+                    </div>
+                </div>
+                <div *ngIf="searchResults.length === 0">
+                    <p>No Favorites</p>
+                </div>
+        </mat-card-content>
+    <section>

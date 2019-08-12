@@ -2,15 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs-compat/Subject';
 import 'rxjs/add/operator/map';
+import { Search, SearchByCoords } from './search.model';
 
 @Injectable()
 export class SearchService {
     // baseUrl: string = 'https://api.nestoria.co.uk/api';
-    propertyType: string = '';
     // testUrl: string = `http://localhost:3000/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=${this.getPropertyType()}&page=1&place_name=`;
     results: []=[];
     searchChanged = new Subject<any>();
     resultStatus: string;
+    coords?: {latitude: string, longitude: string};
 
     constructor(private http: HttpClient) { }
 
@@ -26,14 +27,21 @@ export class SearchService {
       return this.results.slice()[i];
     }
 
-    search(searchObj: {searchPhrase:string, propertyType:string}) {
+    search(searchObj: Search) {
       const { searchPhrase, propertyType } = searchObj;
-      if (searchPhrase === '') return;
-
       let testUrl: string = `http://localhost:3000/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=${propertyType}&page=1&place_name=${searchPhrase}`;
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
-      this.propertyType = propertyType;
-      this.http.get(testUrl, {responseType: 'text', headers})
+      this.requestData(testUrl);
+    }
+
+    searchByLocation(searchObj: SearchByCoords) {
+      const { coords, propertyType } = searchObj;
+      const location = `${coords.latitude},${coords.longitude}`;
+      let testUrl: string = `http://localhost:3000/api?country=uk&pretty=1&action=search_listings&encoding=json&listing_type=${propertyType}&page=1&centre_point=${location}`;
+      this.requestData(testUrl);
+    }
+
+    requestData (url: string) {
+      this.http.get(url, {responseType: 'text'})
       .map(
           (data: any) => {
               const response = data;

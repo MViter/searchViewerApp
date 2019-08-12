@@ -1,10 +1,21 @@
 .search-result {
     padding: 10px;
 
+    #favorite-button {
+        .full {
+            color: rebeccapurple;
+        }
+
+        .empty {
+            color: lightgrey;
+        }
+    }
+
     .search-result-summary {
         margin: 20px 0;
         font-size: 18px;
     }
+
     .search-result-footer-info {
         color: lightslategray;
     }

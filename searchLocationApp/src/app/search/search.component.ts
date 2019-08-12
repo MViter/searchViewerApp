@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { SearchService } from './search.service';
-import { LocalStorageService } from '../resent-search-item/localstorage.service';
-import { Search } from './search.model';
+import { LocalStorageService } from '../localstorage.service';
+import { Search, SearchByCoords, Coords } from './search.model';
 
 @Component({
   selector: 'app-search',
@@ -23,6 +23,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   propertyTypes: string[] = ['buy', 'rent', 'share'];
   propertyType: string = this.propertyTypes[0];
   stateStatus: string = 'initial';
+  coords: Coords;
 
   constructor(
     private searchService: SearchService,
@@ -55,6 +56,29 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     this.lsService.store(searchObj);
     this.searchService.search(searchObj);
+  }
+
+  setLocationParams = (latitude: number, longitude: number) => {
+    this.coords = {latitude, longitude};
+  };
+
+  onMyLocationClicked () {
+    const { propertyType } = this.searchForm.value;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        this.coords = { latitude, longitude };
+        const searchByCoordsObj: SearchByCoords = {
+          coords: this.coords,
+          propertyType
+        };
+        this.lsService.storeByLocation(searchByCoordsObj);
+        this.searchService.searchByLocation(searchByCoordsObj);
+      });
+    } else {
+      alert("Sorry, your browser does not support this feature");
+    }
   }
 
   onKeyDown($event: any) {

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router, RoutesRecognized } from '@angular/router';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/pairwise';
 
 import { SearchService } from '../search/search.service';
+import { LocalStorageService } from '../localstorage.service';
 
 @Component({
   selector: 'app-search-result-item-details',
@@ -13,16 +16,25 @@ export class SearchResultItemDetailsComponent implements OnInit {
   searchResult: {};
   isShowDetails: boolean = false;
   keywordsArray: string[] = [];
-  constructor(
+  isItemInFavorites: boolean = false;
+  favoriteBtnText = 'Add to favorite';
+
+  constructor (
     private route: ActivatedRoute,
-    private searchService: SearchService) { }
+    private router: Router,
+    private searchService: SearchService,
+    private lsService: LocalStorageService) {
+    }
+    
 
   ngOnInit() {
     this.route.params
       .subscribe(
         (params: Params) => {
           this.id = +params['id'];
-          this.searchResult = this.searchService.getSearchResultItem(this.id) || {};
+          const isFavoritePage = this.route.snapshot.routeConfig.path.indexOf('favorite') !== -1;
+          this.searchResult = isFavoritePage ? this.lsService.getFavoriteItem(this.id) : this.searchService.getSearchResultItem(this.id);
+          this.isItemInFavorites = isFavoritePage || this.lsService.isItemInFavorites(this.searchResult);
           this.keywordsArray = this.getKeywordsArray(this.searchResult);
         }
       )
@@ -34,10 +46,20 @@ export class SearchResultItemDetailsComponent implements OnInit {
 
   getKeywordsArray (obj: {} = {}) {
     const keywords = obj && obj.hasOwnProperty('keywords') ? obj['keywords'] : [];
-    return keywords.split(",");
+    return keywords.length > 0 ? keywords.split(",") : [];
   }
 
   isPriceDifferent() {
     return this.searchResult['price_high'] !== this.searchResult['price_low'] && this.searchResult['price_low'] !== this.searchResult['price'];
+  }
+
+  manageFavorites () {
+    if (!this.isItemInFavorites) {
+      setTimeout(() => {this.lsService.storeFavorite(Object.assign(this.searchResult, {id: this.id}))}, 1000);
+      
+    } else {
+      this.lsService.removeFavorite(this.id);
+    }
+    this.isItemInFavorites = !this.isItemInFavorites;
   }
 }

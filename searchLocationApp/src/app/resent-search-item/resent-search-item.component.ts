@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SearchService } from '../search/search.service';
-import { LocalStorageService } from './localstorage.service';
+import { LocalStorageService } from '../localstorage.service';
 import { Search } from '../search/search.model';
 
 @Component({

@@ -1,0 +1,34 @@
+export class SearchResultItem {
+    bathroom_number: string;
+    bedroom_number: string;
+    car_spaces: string;
+    commission: string;
+    construction_year: string;
+    datasource_name: string;
+    img_height: string;
+    img_url: string;
+    img_width: string;
+    keywords: string;
+    latitude: string;
+    lister_url: string;
+    listing_type: string;
+    location_accuracy: string;
+    longitude: string;
+    price: string;
+    price_currency: string;
+    price_formatted: string;
+    price_high: string;
+    price_low: string;
+    price_type: string;
+    property_type: string;
+    room_number: string;
+    size: string;
+    size_type: string;
+    summary: string;
+    thumb_height: string;
+    thumb_url: string;
+    thumb_width: string;
+    title: string;
+    updated_in_days: string;
+    updated_in_days_formatted: string;
+}

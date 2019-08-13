@@ -1,23 +1,22 @@
 <mat-card-title>Property Search</mat-card-title>
 <mat-card-content class="centred-content-contentainer">
     <div class="search-text-container" style="padding-bottom: 20px;">
-        <p>Use the form below to search for house to buy. You can search by <b>place-name</b>, <b>postcose</b>, or click <b>'My location'</b>, to search in your current location</p>
+        <p>{{ propertySearchText }}</p>
     </div>
     <mat-divider></mat-divider>
     <form [formGroup]="searchForm" class="search-form" style="margin: 20px 0;" (keydown)="onKeyDown($event)">
             <mat-form-field class="search-full-width"> 
               <input
                 matInput
-                placeholder="Input your search params"
+                placeholder={{searchInputPlaceholderText}}
                 type="text"
                 id="searchPhrase"
                 formControlName="searchPhrase"
                 autofocus
                 required>
             </mat-form-field>
-            <!-- {{ this.searchForm.value.searchPhrase }} -->
             <div>
-                <label>Property type: </label><br/>
+                <label>{{ propertyTypeText }}</label><br/>
                 <mat-radio-group formControlName="propertyType" aria-labelledby="property-search-radio-group-label"
                     class="property-search-radio-group"
                 >

@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { SearchService } from './search.service';
 import { LocalStorageService } from '../localstorage.service';
 import { Search, SearchByCoords, Coords } from './search.model';
+import AppConstants from '../app.constants';
 
 @Component({
   selector: 'app-search',
@@ -17,6 +18,9 @@ export class SearchComponent implements OnInit, OnDestroy {
   subscription2: Subscription;
   searchResults: [] = [];
   recentSearches: [] = [];
+  propertySearchText: string = AppConstants['PROPERTY_SEARCH_DESCRIPTION_TEXT'];
+  searchInputPlaceholderText: string = AppConstants['SEARCH_INPUT_PLACEHOLDER_TEXT'];
+  propertyTypeText: string = AppConstants['PROPERTY_TYPE'];
 
   searchForm: FormGroup;
   searchPhrase: string = '';

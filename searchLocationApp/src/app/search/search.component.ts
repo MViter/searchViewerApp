@@ -44,17 +44,18 @@ export class SearchComponent implements OnInit, OnDestroy {
       });
 
     this.searchResults = this.searchService.getSearchResultItems();
-    this.recentSearches = this.lsService.get();
+    this.recentSearches = this.lsService.getSearches();
   }
 
   onSearchClicked () {
+    this.searchService.resetResultArray();
     const { searchPhrase, propertyType } = this.searchForm.value;
     const searchObj: Search = {
       searchPhrase,
       propertyType
     };
 
-    this.lsService.store(searchObj);
+    this.lsService.storeSearches(searchObj);
     this.searchService.search(searchObj);
   }
 
@@ -62,18 +63,18 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.coords = {latitude, longitude};
   };
 
+  isSpinnerShown () {
+    this.searchService.getSpinnerStatus();
+  }
+
   onMyLocationClicked () {
+    this.searchService.resetResultArray();
     const { propertyType } = this.searchForm.value;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        this.coords = { latitude, longitude };
-        const searchByCoordsObj: SearchByCoords = {
-          coords: this.coords,
-          propertyType
-        };
-        this.lsService.storeByLocation(searchByCoordsObj);
+        const coords = new Coords(position.coords.latitude, position.coords.longitude)
+        const searchByCoordsObj = new SearchByCoords(propertyType, coords);
+        this.lsService.storeSearches(searchByCoordsObj);
         this.searchService.searchByLocation(searchByCoordsObj);
       });
     } else {
@@ -89,7 +90,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   removeAllRecentSearches() {
-    this.lsService.removeAll();
+    this.lsService.removeAllSearches();
   }
 
   private initForm () {

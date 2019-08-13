@@ -10,12 +10,11 @@ export class Search {
 
 export class SearchByCoords {
     public propertyType: string;
-    public coords: {latitude: number, longitude: number};
+    public coords: Coords;
 
     constructor (propertyType:string, coords: Coords) {
         this.propertyType = propertyType;
-        this.coords.latitude = coords.latitude;
-        this.coords.longitude = coords.longitude;
+        this.coords = coords;
     }
 }
 

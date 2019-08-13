@@ -3,8 +3,8 @@ import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 // import { Subject } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
 import { Search, SearchByCoords } from './search/search.model';
-const STORAGE_KEY = 'recentSearchStorage';
-const STORAGE_KEY2 = 'favoritesStorage';
+const STORAGE_KEY_SEARCHES = 'recentSearchStorage';
+const STORAGE_KEY_FAVORITES = 'favoritesStorage';
 
 @Injectable()
 export class LocalStorageService {
@@ -12,96 +12,111 @@ export class LocalStorageService {
     favoritesChanged = new Subject<any>();
 
     constructor(@Inject(LOCAL_STORAGE) private storage: StorageService) {}
-        
-    store (searchObj: Search): void {
-        const { searchPhrase, propertyType } = searchObj;
-        this.writeData(searchPhrase, propertyType);
+    
+    //*********************** Methods for storing Recent Search */
+
+    getSearches () {
+        return this.get(STORAGE_KEY_SEARCHES) || [];
     }
 
-    storeByLocation(searchLocationObj: SearchByCoords) {
-        const { coords, propertyType } = searchLocationObj;
-        const searchPhrase = `lat = ${coords.latitude}: lng = ${coords.longitude}`;
-        this.writeData(searchPhrase, propertyType);
+    storeSearches (searchObj: any): void {
+        const searchPhrase: any = searchObj instanceof SearchByCoords
+            ? `lat = ${searchObj['coords'].latitude}: lng = ${searchObj.coords.longitude}`
+            : searchObj.searchPhrase;
+        const { propertyType } = searchObj;
+
+        if (searchPhrase === '' || !this.isUnique(STORAGE_KEY_SEARCHES, {searchPhrase, propertyType})) return;
+        const newObj = { searchPhrase, propertyType};
+        const data = this.get(STORAGE_KEY_SEARCHES);
+        data.push(newObj);
+        this.set(STORAGE_KEY_SEARCHES, data);
     }
 
-    storeFavorite (favoritesObj: any): void {
-        if (this.isItemInFavorites(favoritesObj.id)) return;
-        const data = this.storage.get(STORAGE_KEY2) || [];
-        data.push(favoritesObj);
-        this.storage.set(STORAGE_KEY2, data);
+    removeSearch(index: number) {
+        this.remove(index, STORAGE_KEY_SEARCHES);
     }
 
-    removeFavorite (index: number) {
-        const data = this.storage.get(STORAGE_KEY2) || [];
-        data.splice(index, 1);
-        this.storage.set(STORAGE_KEY2, data);
-        this.recentSearchChanged.next(this.get().slice());
+    removeAllSearches () {
+        this.removeAll(STORAGE_KEY_SEARCHES);
     }
 
-    getFavoritesItems () {
-        return this.storage.get(STORAGE_KEY2) || [];
+    //*********************** Methods for storing Recent Favorites */
+
+    getFavorites () {
+        return this.get(STORAGE_KEY_FAVORITES) || [];
     }
 
-    getFavoriteItem (id: number) {
-        const data = this.storage.get(STORAGE_KEY2) || [];
+    getFavorite (id: number) {
+        const data = this.get(STORAGE_KEY_FAVORITES) || [];
         return data[id];
     }
 
+    storeFavorites (favoritesObj: any): void {
+        if (this.isItemInFavorites(favoritesObj.id)) return;
+        const data = this.get(STORAGE_KEY_FAVORITES) || [];
+        data.push(favoritesObj);
+        this.set(STORAGE_KEY_FAVORITES, data);
+    }
+
+    removeFavorite (index: number): void {
+        const data = this.get(STORAGE_KEY_FAVORITES) || [];
+        data.splice(index, 1);
+        this.set(STORAGE_KEY_FAVORITES, data);
+        this.recentSearchChanged.next(this.get(STORAGE_KEY_FAVORITES).slice());
+    }
+
+    removeAllFavorites (): void {
+        this.removeAll(STORAGE_KEY_FAVORITES);
+    }
+    
     isItemInFavorites (favObj: any) {
-        const favorites = this.storage.get(STORAGE_KEY2) || [];
+        const favorites = this.get(STORAGE_KEY_FAVORITES) || [];
         if (favorites.length === 0) return false;
         let isItemInFavorites = false;
-        favorites.forEach((favorite: Search) => {
-            if (favorite['title'] === favObj.title) {
+        for (let favorite of favorites) {
+            if (favorite.title === favObj.title) {
                 isItemInFavorites = true;
                 return isItemInFavorites;
             }
-        });
+        };
         return isItemInFavorites;
     }
 
-    writeData (searchPhrase: string, propertyType: string) {
-        if (searchPhrase === '' || !this.isUnique({searchPhrase, propertyType})) return;
-        const nextIndex = this.getLength() + 1;
-        const newSearchObj = { nextIndex, searchPhrase, propertyType};
-        const data = this.get();
-        data.push(newSearchObj);
-        this.set(data);
+    //** General methods */
+
+    getLength (storageKey: string): number {
+        return this.get(storageKey).length;
     }
 
-    getLength () {
-        return this.get().length;
-    }
-
-    isUnique(obj: Search): boolean {
-        const data = this.get();
+    isUnique(storageKey: string, obj: Search): boolean {
+        const data = this.get(storageKey);
         let isUnique = true;
-        data.forEach((search: Search) => {
+        for (let search of data) {
             if (search.searchPhrase === obj.searchPhrase && search.propertyType === obj.propertyType) {
                 isUnique = false;
                 return isUnique;
             }
-        });
+        };
         return isUnique;
     }
 
-    get () {
-        return this.storage.get(STORAGE_KEY) || [];
+    get (storageKey: string) {
+        return this.storage.get(storageKey) || [];
     }
 
-    remove (index: number) {
-        const data = this.get();
+    remove (index: number, storageKey: string): void {
+        const data = this.get(storageKey);
         data.splice(index, 1);
-        this.set(data.slice());
-        this.recentSearchChanged.next(this.get().slice());
+        this.set(storageKey, data.slice());
+        this.recentSearchChanged.next(this.get(storageKey).slice());
     }
 
-    removeAll () {
-        this.storage.remove(STORAGE_KEY);
+    removeAll (storageKey: string): void {
+        this.storage.remove(storageKey);
         this.recentSearchChanged.next([]);
     }
 
-    set (data: Search[]) {
-        this.storage.set(STORAGE_KEY, data);
+    set (storageKey: string, data: any): void {
+        this.storage.set(storageKey, data);
     }
 }

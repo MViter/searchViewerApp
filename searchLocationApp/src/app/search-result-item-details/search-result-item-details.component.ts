@@ -33,7 +33,7 @@ export class SearchResultItemDetailsComponent implements OnInit {
         (params: Params) => {
           this.id = +params['id'];
           const isFavoritePage = this.route.snapshot.routeConfig.path.indexOf('favorite') !== -1;
-          this.searchResult = isFavoritePage ? this.lsService.getFavoriteItem(this.id) : this.searchService.getSearchResultItem(this.id);
+          this.searchResult = isFavoritePage ? this.lsService.getFavorite(this.id) : this.searchService.getSearchResultItem(this.id);
           this.isItemInFavorites = isFavoritePage || this.lsService.isItemInFavorites(this.searchResult);
           this.keywordsArray = this.getKeywordsArray(this.searchResult);
         }
@@ -55,7 +55,7 @@ export class SearchResultItemDetailsComponent implements OnInit {
 
   manageFavorites () {
     if (!this.isItemInFavorites) {
-      setTimeout(() => {this.lsService.storeFavorite(Object.assign(this.searchResult, {id: this.id}))}, 1000);
+      setTimeout(() => {this.lsService.storeFavorites(Object.assign(this.searchResult, {id: this.id}))}, 1000);
       
     } else {
       this.lsService.removeFavorite(this.id);

@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from '../localstorage.service';
+import { SpinnerService } from '../spinner/spinner.service';
 
 @Component({
   selector: 'app-favorite-search-results',
@@ -13,19 +14,31 @@ export class FavoriteSearchResultsComponent implements OnInit, OnDestroy {
   stateStatus: string;
   searchResults: [] = [];
   matchesNumber: number=0;
+  isSpinnerShown: boolean = true;
 
-  constructor(private lsService: LocalStorageService) {
-    this.searchResults = this.lsService.getFavoritesItems();
+  constructor(
+    private lsService: LocalStorageService,
+    private spinnerService: SpinnerService) {
+    this.searchResults = [];
   }
 
   ngOnInit() {
+    this.spinnerService.show();
+    this.emulateLoading();
     this.subscription = this.lsService.favoritesChanged
     .subscribe(
       (results: []) => {
         this.searchResults = results;
       }
     );
-    this.searchResults = this.lsService.getFavoritesItems();
+    this.searchResults = this.lsService.getFavorites();
+  }
+
+  emulateLoading () {
+    setTimeout(() => {
+      this.spinnerService.hide();
+      this.isSpinnerShown = false;
+      }, 2000);
   }
 
   ngOnDestroy () {

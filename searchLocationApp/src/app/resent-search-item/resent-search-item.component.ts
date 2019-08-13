@@ -24,6 +24,6 @@ export class ResentSearchItemComponent implements OnInit {
   }
 
   onClickDelete(index:number) {
-    this.lsService.remove(index);
+    this.lsService.removeSearch(index);
   }
 }

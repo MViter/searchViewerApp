@@ -1,9 +1,10 @@
 <section>
         <h4>Favorites</h4>
+        <mat-card-subtitle>Searches you`ve marked as favorite</mat-card-subtitle>
         <mat-card-content class="centred-content-contentainer">
             <mat-divider></mat-divider>
             <div class="search-result-section-container">
-                <div *ngIf="searchResults.length > 0">
+                <div *ngIf="searchResults.length > 0 && !isSpinnerShown">
                     <app-search-result-item
                         *ngFor="let searchResult of searchResults; let i = index"
                         [searchResult]="searchResult"
@@ -11,8 +12,8 @@
                     ></app-search-result-item>
                     </div>
                 </div>
-                <div *ngIf="searchResults.length === 0">
-                    <p>No Favorites</p>
+                <div *ngIf="searchResults.length === 0 && !isSpinnerShown" style="padding-top: 10px;">
+                    <h3>No Favorites</h3>
                 </div>
         </mat-card-content>
     <section>

@@ -21,6 +21,8 @@ import { ResentSearchItemComponent } from './resent-search-item/resent-search-it
 import { StorageServiceModule } from 'ngx-webstorage-service';
 import { LocalStorageService } from './localstorage.service';
 import { FavoriteSearchResultsComponent } from './favorite-search-results/favorite-search-results.component';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerService } from './spinner/spinner.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { FavoriteSearchResultsComponent } from './favorite-search-results/favori
     MainScreenComponent,
     SearchResultItemDetailsComponent,
     ResentSearchItemComponent,
-    FavoriteSearchResultsComponent
+    FavoriteSearchResultsComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ import { FavoriteSearchResultsComponent } from './favorite-search-results/favori
     HttpClientModule,
     StorageServiceModule
   ],
-  providers: [SearchService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, LocalStorageService],
+  providers: [SearchService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, LocalStorageService, SpinnerService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

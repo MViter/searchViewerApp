@@ -1,0 +1,26 @@
+<div class="container" *ngIf="show">
+    <div class="row">
+        <div id="loader">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="loading"></div>
+        </div>
+        <p class="spinner-message" *ngIf="message && message !== ''">
+            {{message}}
+        </p>
+    </div>
+</div>
+
+<div>
+    <div class="loader-overlay">
+        <div>
+            <mat-progress-bar *ngIf="show" mode="indeterminate"></mat-progress-bar>
+        </div>
+    </div>
+</div>

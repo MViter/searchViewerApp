@@ -4,7 +4,7 @@
     <mat-card-content class="centred-content-contentainer">
         <mat-divider></mat-divider>
         <div class="search-result-section-container">
-            <div *ngIf="searchResults.length > 0">
+            <div *ngIf="searchResults.length > 0 && !isSpinnerShown()">
                 <app-search-result-item
                     *ngFor="let searchResult of searchResults; let i = index"
                     [searchResult]="searchResult"
@@ -12,8 +12,8 @@
                 ></app-search-result-item>
                 </div>
             </div>
-            <div *ngIf="searchResults.length === 0">
-                <p>No results</p>
+            <div *ngIf="searchResults.length === 0 && !isSpinnerShown()" style="padding-top: 10px;"> 
+                <h3>No results</h3>
             </div>
     </mat-card-content>
 <section>

@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+
 import { LocalStorageService } from '../localstorage.service';
 import { SpinnerService } from '../spinner/spinner.service';
+import AppConstants from '../app.constants';
 
 @Component({
   selector: 'app-favorite-search-results',
@@ -15,6 +17,10 @@ export class FavoriteSearchResultsComponent implements OnInit, OnDestroy {
   searchResults: [] = [];
   matchesNumber: number=0;
   isSpinnerShown: boolean = true;
+
+  favoriteText: string = AppConstants['FAVORITE_TEXT'];
+  favoriteDescriptionText: string = AppConstants['FAVORITE_DESCRIPTION_TEXT'];
+  noFavoriteText: string = AppConstants['NO_FAVORITE_TEXT'];
 
   constructor(
     private lsService: LocalStorageService,

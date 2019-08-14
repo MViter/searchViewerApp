@@ -1,6 +1,6 @@
 <section>
-        <h4>Favorites</h4>
-        <mat-card-subtitle>Searches you`ve marked as favorite</mat-card-subtitle>
+        <h4>{{ favoriteText }}</h4>
+        <mat-card-subtitle>{{ favoriteDescriptionText }}</mat-card-subtitle>
         <mat-card-content class="centred-content-contentainer">
             <mat-divider></mat-divider>
             <div class="search-result-section-container">
@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div *ngIf="searchResults.length === 0 && !isSpinnerShown" style="padding-top: 10px;">
-                    <h3>No Favorites</h3>
+                    <h3>{{ noFavoriteText }}</h3>
                 </div>
         </mat-card-content>
     <section>

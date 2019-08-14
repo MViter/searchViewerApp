@@ -13,15 +13,16 @@
             <button mat-icon-button color="accent" aria-label="Icon-button with a heart icon">
                 <mat-icon (click)="manageFavorites()">{{isItemInFavorites? 'favorite' : 'favorite_border'}}</mat-icon>
             </button>
-            <label for="favorite-button">{{isItemInFavorites? 'in favorites' : 'add to favorite'}}</label>
+            <label for="favorite-button">{{isItemInFavorites? inFavoriteText : addToFavoriteText }}</label>
         </div>
-        <div>Keywords:
+        <div>
+            <h4>{{ keywordsText }}</h4>
             <span *ngFor="let keyword of keywordsArray" class="search-result-keywords">{{keyword}}</span>
         </div>
         <div class="search-result-price">
-            <h4>Price info:</h4>
+            <h4></h4>
             <div>{{searchResult.price_formatted}}
-                <!-- <span *ngIf="isPriceDifferent()">, from {{searchResult.price_currency}}{{searchResult.price_low}} to {{searchResult.price_currency}}{{searchResult.price_high}}</span> -->
+                <span *ngIf="isPriceDifferent()">, from {{searchResult.price_currency}}{{searchResult.price_low}} to {{searchResult.price_currency}}{{searchResult.price_high}}</span>
             </div>
             <div>Price type: {{searchResult.price_type}}</div>
             <div>Commision: {{searchResult.commission}}</div>
@@ -29,7 +30,7 @@
         <div class="search-result-media">
             <img [src]="searchResult.img_url" [alt]="searchResult.title">
         </div>
-        <button mat-button type="button"  color="primary" (click)="showAdditionalInfo()">{{isShowDetails ? 'Hide' : 'Show' }} Details</button>
+        <button mat-button type="button"  color="primary" (click)="showAdditionalInfo()" style="padding: 0;">{{isShowDetails ? hideBtn : showBtn }}</button>
         <div *ngIf="isShowDetails" class="search-result-additional-info">
             <h4>Additional info:</h4>
             <div>Property type: {{searchResult.property_type}}</div>

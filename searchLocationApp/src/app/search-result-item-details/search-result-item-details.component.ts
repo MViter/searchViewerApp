@@ -5,6 +5,7 @@ import 'rxjs/add/operator/pairwise';
 
 import { SearchService } from '../search/search.service';
 import { LocalStorageService } from '../localstorage.service';
+import AppConstants from '../app.constants';
 
 @Component({
   selector: 'app-search-result-item-details',
@@ -17,7 +18,12 @@ export class SearchResultItemDetailsComponent implements OnInit {
   isShowDetails: boolean = false;
   keywordsArray: string[] = [];
   isItemInFavorites: boolean = false;
-  favoriteBtnText = 'Add to favorite';
+  inFavoriteText: string = AppConstants['IN_FAVORITE'];
+  addToFavoriteText: string = AppConstants['ADD_TO_FAVORITE'];
+  priceInfoText: string = AppConstants['PRICE_INFO_TEXT'];
+  keywordText: string = AppConstants['KEYWORD_TEXT'];
+  showBtn: string = AppConstants['BTN_LABELS']['SHOW_DETAILS'];
+  hideBtn: string = AppConstants['BTN_LABELS']['HIDE_DETAILS'];
 
   constructor (
     private route: ActivatedRoute,

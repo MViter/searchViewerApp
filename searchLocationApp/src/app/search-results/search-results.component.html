@@ -1,6 +1,20 @@
 <section>
-    <h4>Search Results</h4>
-    <mat-card-subtitle>X of Y matches</mat-card-subtitle>
+    <div id="header">
+        <div>
+            <h4>{{ searchResultText }}</h4>
+            <mat-card-subtitle>{{ matchesText }}</mat-card-subtitle>
+        </div>
+        <div *ngIf="searchResults.length > 0 && !isSpinnerShown()">
+            <mat-paginator #paginator
+                [hidePageSize]="true"
+                [length]="length"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+                [pageIndex]="currentPage"
+                (page)="pageEvent = onPageChanged($event)">
+            </mat-paginator>
+        </div>
+    </div>
     <mat-card-content class="centred-content-contentainer">
         <mat-divider></mat-divider>
         <div class="search-result-section-container">
@@ -13,7 +27,7 @@
                 </div>
             </div>
             <div *ngIf="searchResults.length === 0 && !isSpinnerShown()" style="padding-top: 10px;"> 
-                <h3>No results</h3>
+                <h3>{{ noSearchText }}</h3>
             </div>
     </mat-card-content>
 <section>

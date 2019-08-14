@@ -14,18 +14,23 @@ import AppConstants from '../app.constants';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
+  propertySearchText: string = AppConstants['PROPERTY_SEARCH_TEXT'];
+  propertySearchDescriptionText: string = AppConstants['PROPERTY_SEARCH_DESCRIPTION_TEXT'];
+  recentSearchesText: string = AppConstants['RESENT_SEARCHES_TEXT'];
+  searchInputText: string = AppConstants['SEARCH_INPUT_TEXT'];
+  propertyTypeText: string = AppConstants['PROPERTY_TYPE'];
+  propertyTypes: string[] = AppConstants['PROPERTY_TYPES'];
+  propertyType: string = this.propertyTypes[0];
+  locationBtn: string = AppConstants['BTN_LABELS']['LOCATION'];
+  submitBtn: string = AppConstants['BTN_LABELS']['SUBMIT'];
+  removeAllBtn: string = AppConstants['BTN_LABELS']['REMOVE_ALL'];
+
   subscription1: Subscription;
   subscription2: Subscription;
   searchResults: [] = [];
   recentSearches: [] = [];
-  propertySearchText: string = AppConstants['PROPERTY_SEARCH_DESCRIPTION_TEXT'];
-  searchInputPlaceholderText: string = AppConstants['SEARCH_INPUT_PLACEHOLDER_TEXT'];
-  propertyTypeText: string = AppConstants['PROPERTY_TYPE'];
-
   searchForm: FormGroup;
   searchPhrase: string = '';
-  propertyTypes: string[] = ['buy', 'rent', 'share'];
-  propertyType: string = this.propertyTypes[0];
   stateStatus: string = 'initial';
   coords: Coords;
 
@@ -36,6 +41,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     private router: Router) {}
 
   ngOnInit() {
+    console.log(`AppConstants  = ${JSON.stringify(AppConstants)}`);
     this.initForm();
     this.subscription1 = this.searchService.searchChanged
       .subscribe((searchResults) => {

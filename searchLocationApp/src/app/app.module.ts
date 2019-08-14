@@ -23,6 +23,7 @@ import { LocalStorageService } from './localstorage.service';
 import { FavoriteSearchResultsComponent } from './favorite-search-results/favorite-search-results.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerService } from './spinner/spinner.service';
+import { PaginationService } from './search-results/pagination.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { SpinnerService } from './spinner/spinner.service';
     HttpClientModule,
     StorageServiceModule
   ],
-  providers: [SearchService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, LocalStorageService, SpinnerService ],
+  providers: [SearchService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, LocalStorageService, SpinnerService, PaginationService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

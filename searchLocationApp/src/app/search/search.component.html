@@ -1,14 +1,14 @@
-<mat-card-title>Property Search</mat-card-title>
+<mat-card-title>{{ propertySearchText }}</mat-card-title>
 <mat-card-content class="centred-content-contentainer">
     <div class="search-text-container" style="padding-bottom: 20px;">
-        <p>{{ propertySearchText }}</p>
+        <p>{{ propertySearchDescriptionText }}</p>
     </div>
     <mat-divider></mat-divider>
     <form [formGroup]="searchForm" class="search-form" style="margin: 20px 0;" (keydown)="onKeyDown($event)">
             <mat-form-field class="search-full-width"> 
               <input
                 matInput
-                placeholder={{searchInputPlaceholderText}}
+                placeholder={{searchInputText}}
                 type="text"
                 id="searchPhrase"
                 formControlName="searchPhrase"
@@ -31,15 +31,15 @@
                 </mat-radio-group>
             </div>
             <div class="button-row">
-                <a routerLink="/search-results"><button mat-button type="button" [disabled]="!searchForm.valid" (click)="onSearchClicked()">Go</button></a>
-                <a routerLink="/search-results"><button mat-button type="button" (click)="onMyLocationClicked()">My Location</button></a>
+                <a routerLink="/search-results"><button mat-button type="button" [disabled]="!searchForm.valid" (click)="onSearchClicked()">{{ submitBtn }}</button></a>
+                <a routerLink="/search-results"><button mat-button type="button" (click)="onMyLocationClicked()">{{ locationBtn }}</button></a>
             </div>
     </form>
     <mat-divider></mat-divider>
     <section *ngIf="recentSearches.length > 0" style="padding-top: 20px;">
         <div style="display: flex; justify-content: space-between;">
-            <h4>Resent Searches</h4>
-            <button (click)="removeAllRecentSearches()" mat-button color="primary">Remove all</button>
+            <h4>{{ recentSearchesText }}</h4>
+            <button (click)="removeAllRecentSearches()" mat-button color="primary">{{ removeAllBtn }}</button>
         </div>
         <mat-card-content class="centred-content-contentainer">
             <div class="search-result-section-container">

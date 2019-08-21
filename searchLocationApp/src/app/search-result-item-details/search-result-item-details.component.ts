@@ -6,6 +6,20 @@ import 'rxjs/add/operator/pairwise';
 import { SearchService } from '../search/search.service';
 import { LocalStorageService } from '../localstorage.service';
 import AppConstants from '../app.constants';
+const displayedDetails: string[] = [
+  'bathroom_number',
+  'bedroom_number',
+  'car_spaces',
+  'commission',
+  'construction_year',
+  'datasource_name',
+  'property_type',
+  'size',
+  'latitude',
+  'longitude',
+  'listing_type',
+  'location_accuracy',
+];
 
 @Component({
   selector: 'app-search-result-item-details',
@@ -14,7 +28,8 @@ import AppConstants from '../app.constants';
 })
 export class SearchResultItemDetailsComponent implements OnInit {
   id: number;
-  searchResult: {};
+  searchResult: any;
+  searchResultArray: any[];
   isShowDetails: boolean = false;
   keywordsArray: string[] = [];
   isItemInFavorites: boolean = false;
@@ -24,6 +39,7 @@ export class SearchResultItemDetailsComponent implements OnInit {
   keywordText: string = AppConstants['KEYWORD_TEXT'];
   showBtn: string = AppConstants['BTN_LABELS']['SHOW_DETAILS'];
   hideBtn: string = AppConstants['BTN_LABELS']['HIDE_DETAILS'];
+  displayedColumns: string[] = ['name', 'value'];
 
   constructor (
     private route: ActivatedRoute,
@@ -40,10 +56,25 @@ export class SearchResultItemDetailsComponent implements OnInit {
           this.id = +params['id'];
           const isFavoritePage = this.route.snapshot.routeConfig.path.indexOf('favorite') !== -1;
           this.searchResult = isFavoritePage ? this.lsService.getFavorite(this.id) : this.searchService.getSearchResultItem(this.id);
+          
+          const tmpArray: {}[] = Array.from(Object.keys(this.searchResult), ((detail, index) => {
+            if(displayedDetails.indexOf(detail) !== -1) {
+              return {
+                index: index,
+                name: this.transformDetailName(detail),
+                value: this.searchResult[detail]
+              }
+              }
+          }));
+          this.searchResultArray = tmpArray.filter(e => e);
           this.isItemInFavorites = isFavoritePage || this.lsService.isItemInFavorites(this.searchResult);
           this.keywordsArray = this.getKeywordsArray(this.searchResult);
         }
       )
+  }
+
+  transformDetailName (detail: string) {
+    return detail.charAt(0).toUpperCase() + detail.replace('_', ' ').slice(1) + ':';
   }
 
   showAdditionalInfo () {

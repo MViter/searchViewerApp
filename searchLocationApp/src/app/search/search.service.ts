@@ -13,6 +13,8 @@ export class SearchService {
     searchChanged = new Subject<any>();
     resultStatus: string;
     pageNum: number = 1;
+    prevSearch: string = '';
+    prevPropertyType: string = '';
     coords?: {latitude: string, longitude: string};
 
     constructor(
@@ -28,9 +30,15 @@ export class SearchService {
       return this.results.slice()[i];
     }
 
+    definePrevSearchObj (prevSearch: string, prevPropertyType: string) {
+      this.prevSearch = prevSearch;
+      this.prevPropertyType = prevPropertyType;
+    }
+
     search(searchObj: Search) {
       this.showLoader();
       const { searchPhrase, propertyType } = searchObj;
+      this.definePrevSearchObj(searchPhrase, propertyType);
       let searchUrl: string = `${url}&listing_type=${propertyType}&page=${this.pageNum}&place_name=${searchPhrase}`;
       return this.getData(searchUrl);
     }
@@ -46,9 +54,7 @@ export class SearchService {
     searchPage(pageIndex: number) {
       this.showLoader();
       console.log(`searching for page ${pageIndex}`);
-      const searchPhrase = 'london';
-      const propertyType = 'rent';
-      let searchUrl: string = `${url}&listing_type=${propertyType}&page=${pageIndex}&place_name=${searchPhrase}`;
+      let searchUrl: string = `${url}&listing_type=${this.prevPropertyType}&page=${pageIndex}&place_name=${this.prevSearch}`;
       return this.getData(searchUrl);
     }
 

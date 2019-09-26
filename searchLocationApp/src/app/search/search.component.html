@@ -1,7 +1,7 @@
-<mat-card-title>{{ propertySearchText }}</mat-card-title>
+<mat-card-title>{{ titleText }}</mat-card-title>
 <mat-card-content class="centred-content-contentainer">
     <div class="search-text-container" style="padding-bottom: 20px;">
-        <p>{{ propertySearchDescriptionText }}</p>
+        <p>{{ descriptionText }}</p>
     </div>
     <mat-divider></mat-divider>
     <form [formGroup]="searchForm" class="search-form" style="margin: 20px 0;" (keydown)="onKeyDown($event)">

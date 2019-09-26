@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModules } from './material-components'; 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -49,6 +49,7 @@ import { PaginationService } from './search-results/pagination.service';
     HttpClientModule,
     StorageServiceModule
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [SearchService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, LocalStorageService, SpinnerService, PaginationService ],
   bootstrap: [AppComponent]
 })

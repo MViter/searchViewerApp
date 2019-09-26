@@ -14,8 +14,8 @@ import AppConstants from '../app.constants';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  propertySearchText: string = AppConstants['PROPERTY_SEARCH_TEXT'];
-  propertySearchDescriptionText: string = AppConstants['PROPERTY_SEARCH_DESCRIPTION_TEXT'];
+  titleText: string = AppConstants['PROPERTY_SEARCH_TEXT'];
+  descriptionText: string = AppConstants['PROPERTY_SEARCH_DESCRIPTION_TEXT'];
   recentSearchesText: string = AppConstants['RESENT_SEARCHES_TEXT'];
   searchInputText: string = AppConstants['SEARCH_INPUT_TEXT'];
   propertyTypeText: string = AppConstants['PROPERTY_TYPE'];

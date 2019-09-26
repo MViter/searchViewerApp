@@ -21,7 +21,7 @@ export class LocalStorageService {
 
     storeSearches (searchObj: any): void {
         const searchPhrase: any = searchObj instanceof SearchByCoords
-            ? `lat = ${searchObj['coords'].latitude}: lng = ${searchObj.coords.longitude}`
+            ? `lat = ${+(searchObj['coords'].latitude).toFixed(2)}: lng = ${+(searchObj.coords.longitude).toFixed(2)}`
             : searchObj.searchPhrase;
         const { propertyType } = searchObj;
 

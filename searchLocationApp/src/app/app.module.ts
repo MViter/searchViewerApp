@@ -24,6 +24,10 @@ import { FavoriteSearchResultsComponent } from './favorite-search-results/favori
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerService } from './spinner/spinner.service';
 import { PaginationService } from './search-results/pagination.service';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { AuthGuardService } from './login-form/auth-guard.service';
+import { AuthService } from './login-form/auth.service';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,8 @@ import { PaginationService } from './search-results/pagination.service';
     SearchResultItemDetailsComponent,
     ResentSearchItemComponent,
     FavoriteSearchResultsComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,16 @@ import { PaginationService } from './search-results/pagination.service';
     StorageServiceModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [SearchService, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, LocalStorageService, SpinnerService, PaginationService ],
+  providers: [
+    SearchService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    LocalStorageService,
+    SpinnerService,
+    PaginationService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+    AuthGuardService,
+    AuthService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
